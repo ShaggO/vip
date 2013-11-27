@@ -1,33 +1,34 @@
-function blobs = blobDetect(I, type)
-    hsize = [10 10];
+function inds = blobDetect(I, type)
 
     if strcmp(type,'log')
+        % Define constants
         k = 6;
         sigma = 0.88*k;
         hsize = ceil(6*sigma);
-        threshold = 0.004;
+        threshold = 0.008;
 
         %% Log filter:
         H = fspecial('log', hsize, sigma);
+
+        % Convole with LoG filter using replication for boundaries
         filtered = imfilter(I,H,'conv','replicate');
 
     elseif strcmp(type,'dog')
-        threshold = 0.06;
+        % Define constants
+        threshold = 0.15;
         sigma = 0.88*4;
         k = 2;
-        hsize = ceil(6*sigma);
 
-        dog1 = fspecial('gaussian', hsize, sigma);
+        % Create DoG filter
+        dog = dogFilter(sigma,k);
 
-        hsize = ceil(6*sigma);
-        dog2 = fspecial('gaussian', hsize, k*sigma);
+        % Convolve with DoG filter using replication for boundaries
+        filtered = imfilter(I,dog,'conv','replicate');
 
-        im1 = imfilter(I,dog1,'conv','replicate');
-        im2 = imfilter(I,dog2,'conv','replicate');
-
-        filtered = im1 - im2;
     end
 
     % Find local extrema satisfying threshold
     blobs = localExtrema(filtered, '8-connect','both', threshold);
+    [rows, cols] = find(blobs);
+    inds = [rows, cols];
 end

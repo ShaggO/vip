@@ -1,0 +1,67 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+
+\usepackage{amsmath,amssymb,amsfonts}
+
+\title{Vision and Image Processing\\Assignment 1}
+\author{Malte Stær Nissen}
+
+\begin{document}
+\maketitle
+
+\section{Detecting interest points}
+\begin{align}
+    G(x,y,\sigma) &= \frac{1}{2\pi\sigma^2}\exp{\left( -\frac{x^2+y^2}{2\sigma^2}
+    \right)} \\
+    L(x,y,\sigma) &= \left( I \ast G \right)(x,y,\sigma)
+\end{align}
+
+\subsection{Difference of Gaussians}
+\begin{align}
+    D(x,y,\sigma) &= \left(G \left(x,y,k \sigma \right) - G \left( x,y,\sigma
+    \right) \right) \ast I(x,y)
+\end{align}
+
+\subsection{Laplacian of Gaussian}
+\begin{align}
+    \nabla^2 L(x,y,sigma) &= L_{x^2}+L_{y^2}
+\end{align}
+
+\subsection{Harris corner detection}
+\begin{align}
+    R(x,y,\sigma) &= \text{det}\left( A \right) - \alpha \text{trace} \left( A
+    \right) ^2 \\
+    A(x,y,\sigma) &=
+        \begin{bmatrix}
+            G(x,y,k\sigma) \ast L_x(x,y,\sigma)^2 &
+            G(x,y,k\sigma) \ast \left( L_x(x,y,\sigma) L_y(x,y,\sigma) \right) \\
+            G(x,y,k\sigma) \ast \left( L_x(x,y,\sigma) L_y(x,y,\sigma) \right) &
+            G(x,y,k\sigma) \ast L_y(x,y,\sigma)^2
+        \end{bmatrix}
+\end{align}
+
+\section{Simple matching of features}
+
+\subsection{Normalized Cross Correlation}
+\begin{align}
+    \bar{F}_2 &= \frac{1}{n}\sum_{x,y} F_1(x,y) \\
+    \bar{F}_2 &= \frac{1}{n}\sum_{x,y} F_2(x,y) \\
+    NCC \left( F_1,F_2 \right) &= 1 - \frac{1}{n}
+    \sum_{x,y}\frac{\left(F_1(x,y)-\bar{F}_1\right) \left( F_2(x,y)-\bar{F}_2
+\right)}{\sigma_1 \sigma_2}
+\end{align}
+
+The performance decreases since a larger variation in the view angle between
+the two images naturally change the lighting and view of the physical objects.
+This will in terms change the shapes captured by the camera. Furthermore some
+previously captured interest points could be hidden due to the angle change
+and new interest points could likewise be revealed. All these changes make it
+harder for our matching algorithm as the optimal patch matches decrease in
+similarity and hence we are prone to erroneous matching.
+
+\end{document}
+
