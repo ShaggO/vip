@@ -1,4 +1,5 @@
 function inds = blobDetect(I, type)
+% Detect blobs in image using either the LoG or DoG method
 
     if strcmp(type,'log')
         % Define constants
@@ -8,7 +9,7 @@ function inds = blobDetect(I, type)
         threshold = 0.008;
 
         %% Log filter:
-        H = fspecial('log', hsize, sigma);
+        H = logFilter(hsize, sigma);
 
         % Convole with LoG filter using replication for boundaries
         filtered = imfilter(I,H,'conv','replicate');

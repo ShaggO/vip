@@ -4,8 +4,13 @@
 \usepackage[english]{babel}
 \usepackage[T1]{fontenc}
 \usepackage{lmodern}
+\usepackage{mathtools}
+\usepackage{subcaption}
 
 \usepackage{amsmath,amssymb,amsfonts}
+
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+\DeclarePairedDelimiter{\floor}{\lfloor}{\rfloor}
 
 \title{Vision and Image Processing\\Assignment 1}
 \author{Malte Stær Nissen}
@@ -14,46 +19,40 @@
 \maketitle
 
 \section{Detecting interest points}
-\begin{align}
-    G(x,y,\sigma) &= \frac{1}{2\pi\sigma^2}\exp{\left( -\frac{x^2+y^2}{2\sigma^2}
-    \right)} \\
-    L(x,y,\sigma) &= \left( I \ast G \right)(x,y,\sigma)
-\end{align}
 
-\subsection{Difference of Gaussians}
-\begin{align}
-    D(x,y,\sigma) &= \left(G \left(x,y,k \sigma \right) - G \left( x,y,\sigma
-    \right) \right) \ast I(x,y)
-\end{align}
+The detection of interest points can be made by using a variety of methods. I
+have implemented\footnote{The entire implementation of this assignment is made
+in Matlab 2012b.} both the two blob detectors Difference of Gaussians (DoG) and
+Laplacian of Gaussian (LoG) as well as the Harris corner detector. All three detectors
+are implemented by hand only using simple Matlab standard functions.
 
-\subsection{Laplacian of Gaussian}
-\begin{align}
-    \nabla^2 L(x,y,sigma) &= L_{x^2}+L_{y^2}
-\end{align}
+Both blob detectors are implemented by first creating either a DoG or LoG
+filter. These filters are created by sampling the appropriate Gaussian
+distribution(s) (and their derrivatives) with a support radius of $3\sigma$
+and hence a filter size of $\ceil{6 \sigma} \times \ceil{6\sigma}$ in order to
+get a sufficient part of the distribution included in the filter. The second
+part of the blob detectors is to perform a simple convolution of an image with
+the filter just found. The boundary cases are handled by using replication of
+boundary pixels to avoid the padding to contribute to the derrivatives.
 
-\subsection{Harris corner detection}
-\begin{align}
-    R(x,y,\sigma) &= \text{det}\left( A \right) - \alpha \text{trace} \left( A
-    \right) ^2 \\
-    A(x,y,\sigma) &=
-        \begin{bmatrix}
-            G(x,y,k\sigma) \ast L_x(x,y,\sigma)^2 &
-            G(x,y,k\sigma) \ast \left( L_x(x,y,\sigma) L_y(x,y,\sigma) \right) \\
-            G(x,y,k\sigma) \ast \left( L_x(x,y,\sigma) L_y(x,y,\sigma) \right) &
-            G(x,y,k\sigma) \ast L_y(x,y,\sigma)^2
-        \end{bmatrix}
-\end{align}
+\begin{figure}
+    \begin{subfigure}[t]{0.5\textwidth}
+        \includegraphics[width=\textwidth]{}
+        \caption{}
+        \label{fig:1a}
+    \end{subfigure}
+    \begin{subfigure}[t]{0.5\textwidth}
+        \includegraphics[width=\textwidth]{}
+        \caption{}
+        \label{fig:2b}
+    \end{subfigure}
+    \caption{}
+    \label{fig:1}
+\end{figure}
 
 \section{Simple matching of features}
 
 \subsection{Normalized Cross Correlation}
-\begin{align}
-    \bar{F}_2 &= \frac{1}{n}\sum_{x,y} F_1(x,y) \\
-    \bar{F}_2 &= \frac{1}{n}\sum_{x,y} F_2(x,y) \\
-    NCC \left( F_1,F_2 \right) &= 1 - \frac{1}{n}
-    \sum_{x,y}\frac{\left(F_1(x,y)-\bar{F}_1\right) \left( F_2(x,y)-\bar{F}_2
-\right)}{\sigma_1 \sigma_2}
-\end{align}
 
 The performance decreases since a larger variation in the view angle between
 the two images naturally change the lighting and view of the physical objects.
