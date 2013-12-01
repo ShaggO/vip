@@ -1,7 +1,10 @@
-function mask = localExtrema(I, nhood, extrema, threshold)
+function inds = localExtrema(I, nhood, extrema, threshold, numOut)
 % Find local extrema in matrix/image
     if nargin < 4
         threshold = NaN;
+    end
+    if nargin < 5
+        numOut = 0;
     end
     if strcmp(nhood,'8-connect')
         % 8 neighbourhood connectivity
@@ -53,5 +56,23 @@ function mask = localExtrema(I, nhood, extrema, threshold)
     % Filter by threshold if defined
     if ~isnan(threshold)
         mask = abs(mask .* I) > threshold;
+    end
+
+    % Return the extrema as a list of (x,y) coordinates
+    % sorted by their absolute intensity in I
+    mInds = find(mask);
+    [~, mSort] = sort(I(mInds));
+    mInds = mInds(mSort);
+    [rows, cols] = ind2sub(size(I), mInds);
+    inds = [rows, cols];
+
+    % Restrict the number of points if defined
+    if numOut > 0
+        if numOut > size(inds,1)
+            numOut = size(inds,1);
+        end
+        numLight = ceil(numOut/2);
+        numDark  = floor(numOut/2);
+        inds = [inds(1:numLight,:); inds(end-numDark+1:end,:)];
     end
 end

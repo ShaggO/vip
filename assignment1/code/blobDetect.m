@@ -1,35 +1,27 @@
-function inds = blobDetect(I, type)
+function inds = blobDetect(I, type, sigma, threshold, k, numOut)
 % Detect blobs in image using either the LoG or DoG method
+    if nargin < 5
+        k = 1;
+    end
+    if nargin < 6
+        numOut = 0;
+    end
 
     if strcmp(type,'log')
-        % Define constants
-        k = 6;
-        sigma = 0.88*k;
-        hsize = ceil(6*sigma);
-        threshold = 0.008;
-
-        %% Log filter:
-        H = logFilter(hsize, sigma);
+        % Create Log filter
+        H = logFilter(sigma);
 
         % Convole with LoG filter using replication for boundaries
         filtered = imfilter(I,H,'conv','replicate');
 
     elseif strcmp(type,'dog')
-        % Define constants
-        threshold = 0.15;
-        sigma = 0.88*4;
-        k = 2;
-
         % Create DoG filter
         dog = dogFilter(sigma,k);
 
         % Convolve with DoG filter using replication for boundaries
         filtered = imfilter(I,dog,'conv','replicate');
-
     end
 
     % Find local extrema satisfying threshold
-    blobs = localExtrema(filtered, '8-connect','both', threshold);
-    [rows, cols] = find(blobs);
-    inds = [rows, cols];
+    inds = localExtrema(filtered, '8-connect','both', threshold, numOut);
 end
