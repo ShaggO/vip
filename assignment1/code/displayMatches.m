@@ -9,8 +9,8 @@ function displayMatches(I1, I2, p1, p2, matches, fTitle, save)
     imshow([I1, I2]);
     hold on;
     title(fTitle);
-    plot(p1(:,2),p1(:,1),'.r');
-    plot(p2(:,2)+size(I1,2),p2(:,1),'.r');
+    plot(p1(:,2),p1(:,1),'or');
+    plot(p2(:,2)+size(I1,2),p2(:,1),'or');
 
     % Plot matching points
     for i = 1:size(matches,1)
