@@ -1,0 +1,54 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+
+\usepackage{amsmath,amssymb,amsfonts}
+
+\title{Vision and Image Processing\\Assignment 2}
+\author{Malte Stær Nissen \and Benjamin Braithwaite}
+
+\begin{document}
+\maketitle
+
+\section{General notes}
+We have implemented the content based image retrieval (CIBR) of this assignment
+in Matlab 2013b. Furthermore we are using the VLFeat library (v. 0.9.17). We
+have chosen to use the CalTech 101 image database for testing out the
+performance of our CIBR implementation. From this image database we choose a
+training part and a test part. These parts are specified later when we test the
+performance.
+
+\section{Codebook generation}
+The first step of our CIBR system is to create a code book for our images to
+compare test images against.
+
+We do this by extracting SIFT features for each of the training images. All
+these features are combined in a matrix where each row corresponds to a
+feature. We now choose a number $k$ of clusters (words) and perform clustering
+of the features resulting in $k$ cluster centers or words followed by creating
+a bag of words for each image by counting the number of features (of the image)
+associated to each word.
+
+\section{Indexing}
+The second step of our CIBR system is to perform indexing of the test dataset
+using the newly generated code book. Once again we first extract the SIFT
+features of each of the test images and place these in a combined matrix. We
+then project each of the descriptors onto the cluster centers of our code book
+and hence get a mapping for each of the features to each of the words. Counting
+the number of features related to each word for each image gives us the bag of
+words for each image. The information is combined in a cell array where each
+entry corresponds to an image and contains the image path, correct category and
+bag of words where each entry corresponds to an image and contains the image
+path, correct category and bag of words..
+
+\section{Retrieving}
+The final step of our CIBR system is to retrieve the category of each test
+image. This is done by comparing the bag of words of each test image with the
+bag of words for each of the train images. This comparison can be done using
+various types of (dis)similarity measures. We have chosen to use the
+Bhattacharyya similarity measure.
+
+\end{document}
