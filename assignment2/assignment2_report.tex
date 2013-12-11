@@ -48,8 +48,11 @@ path, correct category and bag of words..
 The final step of our CIBR system is to retrieve the category of each test
 image. This is done by comparing the bag of words of each test image with the
 bag of words for each of the train images. This comparison can be done using
-various types of (dis)similarity measures. We have chosen to use the
-Bhattacharyya similarity measure.
+various types of (dis)similarity measures. We have chosen to test the
+Bhattacharyya measure, the Euclidean distance, and the
+Kullback-Leibler divergence (symmetric version). We simply choose the category
+of each test image as the category of the best matching train image using one of
+the previously mentioned measures.
 
 \section{Results}
 
