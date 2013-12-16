@@ -4,11 +4,13 @@
 \usepackage[english]{babel}
 \usepackage[T1]{fontenc}
 \usepackage{lmodern}
+\usepackage{subcaption}
 
 \usepackage{amsmath,amssymb,amsfonts,adjustbox,caption}
 
 \title{Vision and Image Processing\\Assignment 2}
-\author{Malte Stær Nissen \and Benjamin Braithwaite}
+\author{Malte Stær Nissen \\ \texttt{tgq958} \and Benjamin Braithwaite \\
+\texttt{cpg608}}
 
 \begin{document}
 \maketitle
@@ -55,47 +57,48 @@ of each test image as the category of the best matching train image using one of
 the previously mentioned measures.
 
 \section{Results}
-%
+
+\subsection{Input parameters}
 \begin{figure}[H]
-\centering
-\adjincludegraphics[scale=.8]{images/results_k.pdf}
-\label{fig:results_k}
-\caption{Matching accuracy for $n_{train} = 5$ and varying $k$.}
+    \centering
+    \begin{subfigure}[t]{0.48\textwidth}
+        \includegraphics[width=\textwidth]{images/results_k.pdf}
+        \label{fig:results_k}
+        \caption{Matching accuracy for $n_{train} = 5$ and varying $k$.}
+    \end{subfigure}
+    \begin{subfigure}[t]{0.48\textwidth}
+        \includegraphics[width=\textwidth]{images/results_k_time.pdf}
+        \label{fig:results_k_time}
+        \caption{Computation time for $n_{train} = 5$ and varying $k$.}
+    \end{subfigure}
+    \begin{subfigure}[t]{0.48\textwidth}
+        \includegraphics[width=\textwidth]{images/results_n_train.pdf}
+        \label{fig:results_n_train}
+        \caption{Matching accuracy for $k = 2500$ and varying $n_{train}$.}
+    \end{subfigure}
+    \begin{subfigure}[t]{0.48\textwidth}
+        \includegraphics[width=\textwidth]{images/results_n_train_time.pdf}
+        \label{fig:results_n_train_time}
+        \caption{Computation time for $k = 2500$ and varying $n_{train}$.}
+    \end{subfigure}
 \end{figure}
-%
-\begin{figure}[H]
-\centering
-\adjincludegraphics[scale=.8]{images/results_k_time.pdf}
-\label{fig:results_k_time}
-\caption{Computation time for $n_{train} = 5$ and varying $k$.}
-\end{figure}
-%
-\begin{figure}[H]
-\centering
-\adjincludegraphics[scale=.8]{images/results_n_train.pdf}
-\label{fig:results_n_train}
-\caption{Matching accuracy for $k = 2500$ and varying $n_{train}$.}
-\end{figure}
-%
-\begin{figure}[H]
-\centering
-\adjincludegraphics[scale=.8]{images/results_n_train_time.pdf}
-\label{fig:results_n_train_time}
-\caption{Computation time for $k = 2500$ and varying $n_{train}$.}
-\end{figure}
-%
+
+\subsection{Examples of resulting retrieving}
+
 \begin{figure}[H]
 \centering
 \adjincludegraphics[scale=.4]{images/results_11.pdf}
 \label{fig:results_11}
-\caption{Example of successful image matching: test image with its 3 best training image matches, along with their bag of words histograms.}
+\caption{Example of successful image matching: test image with its 3 best
+    training image matches, along with their bag of words histograms.}
 \end{figure}
 %
 \begin{figure}[H]
 \centering
 \adjincludegraphics[scale=.4]{images/results_18.pdf}
 \label{fig:results_18}
-\caption{Example of failed image matching: test image with its 3 best training image matches, along with their bag of words histograms.}
+\caption{Example of failed image matching: test image with its 3 best training
+    image matches, along with their bag of words histograms.}
 \end{figure}
 %
 \end{document}
