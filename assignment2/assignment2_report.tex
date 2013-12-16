@@ -60,7 +60,7 @@ the previously mentioned measures.
 
 \subsection{Parameter study}
 
-We have decided to use all 101 categories in the image dataset, and take out $n_{train}$ training images and $n_{test}$ test images from each category. This means if were to randomly guess the category of the test images, we would get an accuracy of just under $0.01$. When we use clustering to generate the words, we only use a 10th of the SIFT features resulting from VLFeat, as it would otherwise be too slow. However, we use all the features computing the bag of words for each image. We set $n_{test} = 5$.
+We have decided to use all 101 categories in the image dataset, and take out $n_{train}$ training images and $n_{test}$ test images from each category. This means if were to randomly guess the category of the test images, we would get an accuracy of just under $0.01$. When we use clustering to generate the words, we only use a 10th of the SIFT features resulting from VLFeat, as it would otherwise be too slow. However, we use all the features when computing the bag of words for each image. We set $n_{test} = 5$.
 
 The parameters $k$ and $n_{train}$ are important for the accuracy of our CBIR system. Although the best value for $k$ is dependent on $n_{train}$ and vice versa, we simply optimize the parameters separately as the CBIR process is quite time consuming. The accuracy and computation time for $n_{train} = 5$ and varying $k$ between $500$ and $3000$ are shown in Figure \ref{fig:results_k} and \ref{fig:results_k_time}. We see that the Bhattacharyya measure is the clear favourite in terms of matching accuracy, and $k = 2500$ gives the best accuracy of $0.135$. The computation time scales close to linearly in terms of $k$.
 
@@ -95,37 +95,21 @@ Now keeping the best result $k = 2500$, we consider different values for $n_{tra
 
 \subsection{Examples of resulting retrieving}
 In this subsection we look at a couple of examples of the output of the
-retrieving process.
-All the examples we present in this subsection are generated using the best
-parameters described in the previous subsection.
-
-Figure \ref{fig:results_11} shows a test image (left-most)
+retrieving process. Figure \ref{fig:results_11} shows a test image (left-most)
 and the corresponding three best matches (best ordered left to right). The
 image is correctly categorized as a beaver. Looking at the images the content
 of the two matched images is quite different but the algorithm succeeds
 nonetheless. The distance between the three best matches is however quite
-minimal (between $d = 0.7050$ and $d = 0.7177$). It should be noted that the
-Bhattacharyya similarity measure has been ``inverted'' by subtracting it from 1
-giving us the distances $d$.
-The histogram of each image's bag of words is shown below their
-corresponding image. These histograms look quite different to the human eye,
-but the use of the Bhattacharyya similarity give them nearly the same score as
-mentioned earlier. Looking at the actual matched training images we see that
-there is quite a large difference in the images (a woodden chair and a
-butterfly) compared with the test image (a beaver) and hence the close matching
-is surprising from a human perspective.
+minimal. The histogram of each image's bag of words is shown below their
+corresponding image. These histograms look quite different to the human eye, but the use of the
+Bhattacharyya similarity give them nearly the same score as mentioned earlier.
 
-Figure \ref{fig:results_18} is another example of a retrieving. This example
-has however failed to perform a correct categorization. Once again the test
-image is shown as the left-most image and the best (left to right) three
-matches are shown in the figure as well. By looking at the three matches we
-see that the second-best match would have given a correct categorization.
-Again the distances $d$ are quite close (between 0.8157 and 0.8223). Once
-again the histograms of the bag of words shown below each image are of little
-help when performing visual inspection to try to justify the failed or
-successful matches. When looking at the actual images from a human perspective
-the two train images (laptop and pidgeon) of wrong categories are however
-quite different from the correct one (camera).
+Figure \ref{fig:results_18} is another example of a retrieving. This example has
+however failed to perform a correct categorization. Once again the test image is
+shown as the left-most image and the best (left to right) three matches are
+shown in the figure as well. By looking at the three matches we see that the
+second would have given a correct categorization.
+correctly categorize an image.
 \begin{figure}[H]
 \centering
 \adjincludegraphics[scale=.4]{images/results_11.pdf}
