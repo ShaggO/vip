@@ -68,23 +68,23 @@ The parameters $k$ and $n_{train}$ are important for the accuracy of our CBIR sy
     \centering
     \begin{subfigure}[t]{0.48\textwidth}
         \includegraphics[width=\textwidth]{images/results_k.pdf}
-        \label{fig:results_k}
         \caption{Matching accuracy for $n_{train} = 5$ and varying $k$.}
+        \label{fig:results_k}
     \end{subfigure}
     \begin{subfigure}[t]{0.48\textwidth}
         \includegraphics[width=\textwidth]{images/results_k_time.pdf}
-        \label{fig:results_k_time}
         \caption{Computation time for $n_{train} = 5$ and varying $k$.}
+        \label{fig:results_k_time}
     \end{subfigure}
     \begin{subfigure}[t]{0.48\textwidth}
         \includegraphics[width=\textwidth]{images/results_n_train.pdf}
-        \label{fig:results_n_train}
         \caption{Matching accuracy for $k = 2500$ and varying $n_{train}$.}
+        \label{fig:results_n_train}
     \end{subfigure}
     \begin{subfigure}[t]{0.48\textwidth}
         \includegraphics[width=\textwidth]{images/results_n_train_time.pdf}
-        \label{fig:results_n_train_time}
         \caption{Computation time for $k = 2500$ and varying $n_{train}$.}
+        \label{fig:results_n_train_time}
     \end{subfigure}
     \caption{Parameter study results for training and testing the
     implementation}
@@ -92,21 +92,36 @@ The parameters $k$ and $n_{train}$ are important for the accuracy of our CBIR sy
 \end{figure}
 
 \subsection{Examples of resulting retrieving}
+In this subsection we look at a couple of examples of the output of the
+retrieving process. Figure \ref{fig:results_11} shows a test image (left-most)
+and the corresponding three best matches (best ordered left to right). The
+image is correctly categorized as a beaver. Looking at the images the content
+of the two matched images is quite different but the algorithm succeeds
+nonetheless. The distance between the three best matches is however quite
+minimal. The histogram of each image's bag of words is shown below their
+corresponding image. These histograms look quite different to the human eye, but the use of the
+Bhattacharyya similarity give them nearly the same score as mentioned earlier.
 
+Figure \ref{fig:results_18} is another example of a retrieving. This example has
+however failed to perform a correct categorization. Once again the test image is
+shown as the left-most image and the best (left to right) three matches are
+shown in the figure as well. By looking at the three matches we see that the
+second would have given a correct categorization.
+correctly categorize an image.
 \begin{figure}[H]
 \centering
 \adjincludegraphics[scale=.4]{images/results_11.pdf}
-\label{fig:results_11}
 \caption{Example of successful image matching: test image with its 3 best
     training image matches, along with their bag of words histograms.}
+\label{fig:results_11}
 \end{figure}
 %
 \begin{figure}[H]
 \centering
 \adjincludegraphics[scale=.4]{images/results_18.pdf}
-\label{fig:results_18}
 \caption{Example of failed image matching: test image with its 3 best training
     image matches, along with their bag of words histograms.}
+\label{fig:results_18}
 \end{figure}
 %
 \end{document}
