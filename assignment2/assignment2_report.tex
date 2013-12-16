@@ -59,6 +59,11 @@ the previously mentioned measures.
 \section{Results}
 
 \subsection{Input parameters}
+
+We have decided to use all 101 categories in the image dataset, and take out $n_{train}$ training images and $n_{test}$ test images from each category. This means if were to randomly guess the category of the test images, we would get an accuracy of just under $0.01$. When we use clustering to generate the words, we only use a 10th of the SIFT features resulting from VLFeat, as it would otherwise be too slow. However, we use all the features computing the bag of words for each image.
+
+The parameters $k$ and $n_{train}$ are important for the accuracy of our CBIR system. Although the best value for $k$ is dependent on $n_{train}$ and vice versa, since the CBIR process is quite time consuming, we simply optimize the parameters separately.
+
 \begin{figure}[H]
     \centering
     \begin{subfigure}[t]{0.48\textwidth}
