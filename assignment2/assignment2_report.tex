@@ -60,11 +60,31 @@ the previously mentioned measures.
 
 \subsection{Parameter study}
 
-We have decided to use all 101 categories in the image dataset, and take out $n_{train}$ training images and $n_{test}$ test images from each category. This means if were to randomly guess the category of the test images, we would get an accuracy of just under $0.01$. When we use clustering to generate the words, we only use a 10th of the SIFT features resulting from VLFeat, as it would otherwise be too slow. However, we use all the features computing the bag of words for each image. We set $n_{test} = 5$.
+We have decided to use all 101 categories in the image dataset, and take out
+$n_{train}$ training images and $n_{test}$ test images from each category.
+This means if were to randomly guess the category of the test images, we would
+get an accuracy of just under $0.01$. When we use clustering to generate the
+words, we only use a 10th of the SIFT features resulting from VLFeat, as it
+would otherwise be too slow. However, we use all the features when computing
+the bag of words for each image. We set $n_{test} = 5$.
 
-The parameters $k$ and $n_{train}$ are important for the accuracy of our CBIR system. Although the best value for $k$ is dependent on $n_{train}$ and vice versa, we simply optimize the parameters separately as the CBIR process is quite time consuming. The accuracy and computation time for $n_{train} = 5$ and varying $k$ between $500$ and $3000$ are shown in Figure \ref{fig:results_k} and \ref{fig:results_k_time}. We see that the Bhattacharyya measure is the clear favourite in terms of matching accuracy, and $k = 2500$ gives the best accuracy of $0.135$. The computation time scales close to linearly in terms of $k$.
+The parameters $k$ and $n_{train}$ are important for the accuracy of our
+CBIR system. Although the best value for $k$ is dependent on $n_{train}$
+and vice versa, we simply optimize the parameters separately as the CBIR
+process is quite time consuming. The accuracy and computation time for
+$n_{train} = 5$ and varying $k$ between $500$ and $3000$ are shown in
+Figure \ref{fig:results_k} and \ref{fig:results_k_time}. We see that the
+Bhattacharyya measure is the clear favourite in terms of matching accuracy,
+and $k = 2500$ gives the best accuracy of $0.135$. The computation time scales
+close to linearly in terms of $k$.
 
-Now keeping the best result $k = 2500$, we consider different values for $n_{train}$ between $2$ and $20$. The results are shown in Figure \ref{fig:results_n_train} and \ref{fig:results_n_train_time}. We see that $n_{train} = 15$ gives the best accuracy of $0.206$. Surprisingly increasing to $n_{train} = 20$ drastically lowers the accuracy. This could be caused by $k$ being too low to support the added features or something going wrong with the k-means clustering from VLFeat.
+Now keeping the best result $k = 2500$, we consider different values
+for $n_{train}$ between $2$ and $20$. The results are shown in Figure
+\ref{fig:results_n_train} and \ref{fig:results_n_train_time}. We see that
+$n_{train} = 15$ gives the best accuracy of $0.206$. Surprisingly increasing
+to $n_{train} = 20$ drastically lowers the accuracy. This could be caused by
+$k$ being too low to support the added features or something going wrong with
+the k-means clustering from VLFeat.
 
 \begin{figure}[H]
     \centering
