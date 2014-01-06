@@ -1,4 +1,4 @@
-function p = snake(I, p, alpha, beta, gamma, tau, sigma)
+function p = snake(I, p, alpha, beta, gamma, tau, sigma, method)
 % Perform snake iterations and output final snake points
 
     % Compute system matrix components
@@ -11,15 +11,7 @@ function p = snake(I, p, alpha, beta, gamma, tau, sigma)
     Minv = inv(M);
 
     % Compute derrived images
-    hsize = 6*sigma;
-    Ix  = imfilter(I, gaussFilter(hsize, sigma,  'x'),'conv', 'replicate');
-    Ixx = imfilter(I, gaussFilter(hsize, sigma, 'xx'),'conv', 'replicate');
-    Iy  = imfilter(I, gaussFilter(hsize, sigma,  'y'),'conv', 'replicate');
-    Iyy = imfilter(I, gaussFilter(hsize, sigma, 'yy'),'conv', 'replicate');
-    Ixy = imfilter(I, gaussFilter(hsize, sigma, 'xy'),'conv',  'replicate');
-
-    Fx = -2 * (Ix .* Ixx + Iy .* Ixy);
-    Fy = -2 * (Ix .* Ixy + Iy .* Iyy);
+    [F, Fx, Fy] = externalForces(I, sigma, method);
 
     oldP = p;
     v = p-oldP;
@@ -33,7 +25,8 @@ function p = snake(I, p, alpha, beta, gamma, tau, sigma)
     drawnow;
 
     % Iterate util stop
-    for i = 1:5000
+    for i = 1:30000
+        title(['Interation ' num2str(i)]);
         % Interpolate current points
         Fp(:,1) = interp2(Fx,p(:,1),p(:,2),'linear',0);
         Fp(:,2) = interp2(Fy,p(:,1),p(:,2),'linear',0);
