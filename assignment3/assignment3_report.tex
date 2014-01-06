@@ -13,11 +13,32 @@
 \begin{document}
 \maketitle
 
-
-
 Image url: http://cdn.logicspot.com/wp-content/uploads/2011/11/Online-Competitor-Analysis.jpg
 
 Interpolation: http://www.mathworks.se/help/matlab/ref/interp1.html
 
+\section{External force derivatives}
+%
+We compute the derivatives of the two energy functions.
+\begin{itemize}
+\item Local maxima of gradient magnitude:
+\end{itemize}
+%
+\begin{align}
+F &= - \frac12 \| \nabla I_{\sigma} \|^2 = - \frac12 (\nabla I_{\sigma x}^2 + \nabla I_{\sigma y}^2) \\
+F_x &= - (\nabla I_{\sigma x} \nabla I_{\sigma xx} + \nabla I_{\sigma y} \nabla I_{\sigma xy}) \\
+F_y &= - (\nabla I_{\sigma x} \nabla I_{\sigma xy} + \nabla I_{\sigma y} \nabla I_{\sigma yy})
+\end{align}
+%
+\begin{itemize}
+\item Zero-crossings of Laplacian of Gaussian:
+\end{itemize}
+%
+\begin{align}
+F &= - \frac12 \Delta I_{\sigma}^2 = - \frac12 (\nabla I_{\sigma xx} + \nabla I_{\sigma yy})^2 \\
+F_x &= - (\nabla I_{\sigma xx} + \nabla I_{\sigma yy}) (\nabla I_{\sigma xxx} + \nabla I_{\sigma xyy}) \\
+F_y &= - (\nabla I_{\sigma xx} + \nabla I_{\sigma yy}) (\nabla I_{\sigma xxy} + \nabla I_{\sigma yyy})
+\end{align}
+%
 \end{document}
 
