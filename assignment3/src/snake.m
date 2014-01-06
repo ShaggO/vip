@@ -90,7 +90,8 @@ function p = snake(I, p, alpha, beta, gamma, tau, sigma, method, img, ith)
 
         % Stop loop early if no change is detected
         diffP = max(sqrt(sum(v.^2,2)));
-        if max(diffP) < 2.1e-2
+%        if max(diffP) < 2.1e-2
+        if max(diffP) < 2e-3
             break;
         end
     end

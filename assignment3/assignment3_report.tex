@@ -4,6 +4,9 @@
 \usepackage[english]{babel}
 \usepackage[T1]{fontenc}
 \usepackage{lmodern}
+\usepackage[hidelinks]{hyperref}
+\usepackage{subcaption}
+\usepackage{graphicx}
 
 \usepackage{amsmath,amssymb,amsfonts}
 
@@ -14,6 +17,7 @@
 \maketitle
 
 Image url: http://cdn.logicspot.com/wp-content/uploads/2011/11/Online-Competitor-Analysis.jpg
+\url{http://www.korthalsaltes.com/photo/cubic_shapes/cubic_shape01.jpg}
 
 Interpolation: http://www.mathworks.se/help/matlab/ref/interp1.html
 
@@ -40,5 +44,62 @@ F_x &= - (\nabla I_{\sigma xx} + \nabla I_{\sigma yy}) (\nabla I_{\sigma xxx} + 
 F_y &= - (\nabla I_{\sigma xx} + \nabla I_{\sigma yy}) (\nabla I_{\sigma xxy} + \nabla I_{\sigma yyy})
 \end{align}
 %
+
+\section{Implementation description}
+
+\section{Tests and examples}
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[t]{0.48\textwidth}
+        \includegraphics[width=\textwidth]{src/images/cubic_shape01.jpg}
+        \caption{original image}
+        \label{fig:cubic_original}
+    \end{subfigure}
+    \begin{subfigure}[t]{0.48\textwidth}
+        \includegraphics[width=\textwidth]{src/images/cubic_forces.pdf}
+        \caption{Force image}
+        \label{fig:cubic_forces}
+    \end{subfigure}
+    \begin{subfigure}[t]{0.48\textwidth}
+        \includegraphics[width=\textwidth]{src/images/cubic_xforces.pdf}
+        \caption{x derivative of force image}
+        \label{fig:cubic_fx}
+    \end{subfigure}
+    \begin{subfigure}[t]{0.48\textwidth}
+        \includegraphics[width=\textwidth]{src/images/cubic_yforces.pdf}
+        \caption{y derivative of force image}
+        \label{fig:cubic_fy}
+    \end{subfigure}
+    \caption{\texttt{cubic.jpg} image and snake results}
+    \label{fig:cubic}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[t]{0.48\textwidth}
+        \includegraphics[width=\textwidth]{src/images/cubic_0.pdf}
+        \caption{Start}
+        \label{fig:cubic_grayscale}
+    \end{subfigure}
+    \begin{subfigure}[t]{0.48\textwidth}
+        \includegraphics[width=\textwidth]{src/images/cubic_400.pdf}
+        \caption{400}
+        \label{fig:cubic_400}
+    \end{subfigure}
+    \begin{subfigure}[t]{0.48\textwidth}
+        \includegraphics[width=\textwidth]{src/images/cubic_800.pdf}
+        \caption{800}
+        \label{fig:cubic_800}
+    \end{subfigure}
+    \begin{subfigure}[t]{0.48\textwidth}
+        \includegraphics[width=\textwidth]{src/images/cubic_1677.pdf}
+        \caption{1677 (end)}
+        \label{fig:cubic_end}
+    \end{subfigure}
+    \caption{\texttt{cubic.jpg} snake intermediate results}
+    \label{fig:cubic_intermediate}
+\end{figure}
+
 \end{document}
 

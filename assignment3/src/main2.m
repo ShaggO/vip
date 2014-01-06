@@ -58,5 +58,13 @@ gamma = 1500;
 tau   = 0.4;
 sigma = 2;
 
+%snake(I, [xs(1:end-1)', ys(1:end-1)'], alpha, beta, gamma, tau, sigma,...
+%        'gradient magnitude', 'images/cubic', 400);
+
+alpha = 0.2;
+beta  = 0.2;
+gamma = 3000;
+tau   = 0.6;
+sigma = 2;
 snake(I, [xs(1:end-1)', ys(1:end-1)'], alpha, beta, gamma, tau, sigma,...
-        'gradient magnitude', 'images/cubic', 400);
+        'log', 'images/cubic_log', 400);
