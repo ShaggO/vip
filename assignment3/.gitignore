@@ -3,4 +3,5 @@
 *.fdb_latexmk
 *.log
 *.synctex.gz
+*.out
 assignment3_report.pdf
