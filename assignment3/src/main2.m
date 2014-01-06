@@ -6,6 +6,8 @@ clc;
 
 % Load images
 I = imread('images/cubic_shape01.jpg');
+figure;
+imshow(I);
 
 if size(I,3) > 1
     % Convert to grayscale if multiple channels
@@ -56,4 +58,5 @@ gamma = 1500;
 tau   = 0.4;
 sigma = 2;
 
-snake(I, [xs(1:end-1)', ys(1:end-1)'], alpha, beta, gamma, tau, sigma, 'gradient magnitude');
+snake(I, [xs(1:end-1)', ys(1:end-1)'], alpha, beta, gamma, tau, sigma,...
+        'gradient magnitude', 'images/cubic', 400);

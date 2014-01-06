@@ -6,5 +6,5 @@ function M = systemMatrix(ncurve, alpha, beta, tau)
     C = 1 + tau * (2 * alpha + 6 * beta);
 
     % Initialize system matrix
-    M = toeplitz([C, B, A, ncurve-5, A, B]);
+    M = toeplitz([C, B, A, zeros(1,ncurve-5), A, B]);
 end
