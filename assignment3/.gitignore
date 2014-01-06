@@ -2,5 +2,5 @@
 *.aux
 *.fdb_latexmk
 *.log
-*.synchtex.gz
+*.synctex.gz
 assignment3_report.pdf
