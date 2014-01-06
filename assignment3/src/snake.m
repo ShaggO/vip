@@ -2,17 +2,13 @@ function p = snake(I, p, alpha, beta, gamma, tau, sigma, method)
 % Perform snake iterations and output final snake points
 
     % Compute system matrix components
-    A = tau * beta;
-    B = -tau * (alpha + 4 * beta);
-    C = 1 + tau * (2 * alpha + 6 * beta);
-
-    % Initialize system matrix
-    M = toeplitz([C, B, A, zeros(1,size(p,1)-5), A, B]);
+    M = systemMatrix(size(p,1), alpha, beta, tau);
     Minv = inv(M);
 
     % Compute derrived images
     [F, Fx, Fy] = externalForces(I, sigma, method);
 
+    % Initial velocities (for displaying changes)
     oldP = p;
     v = p-oldP;
 
@@ -35,6 +31,7 @@ function p = snake(I, p, alpha, beta, gamma, tau, sigma, method)
         oldP = p;
         p = Minv * (p - gamma * Fp);
 
+        % Position changes
         v = p-oldP;
 
         % Update plot
