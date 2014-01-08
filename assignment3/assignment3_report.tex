@@ -23,7 +23,6 @@
 \maketitle
 
 Image url: http://cdn.logicspot.com/wp-content/uploads/2011/11/Online-Competitor-Analysis.jpg
-\url{http://www.korthalsaltes.com/photo/cubic_shapes/cubic_shape01.jpg}
 
 Interpolation: http://www.mathworks.se/help/matlab/ref/interp1.html
 
@@ -86,7 +85,36 @@ for each iteration, as derived in the slides from gradient descent and the three
 %
 \section{Tests and examples}
 %
-We have chosen two images $\texttt{coins.png}$ and $\texttt{cubic.jpg}$, where the cubic image is slightly harder to segment than the coins image. For each image we have experimented with various parameters for both external energy terms, and found some that work the best. The results are shown in figures ...
+We have chosen two images
+$\texttt{coins.png}$\footnote{Standard Matlab image} and
+$\texttt{cubic.jpg}$\footnote{\url{http://www.korthalsaltes.com/photo/cubic_sh
+apes/cubic_shape01.jpg}} shown in Figures \ref{fig:coins_original} and
+\ref{fig:cubic_original} respectively. For each image we have experimented
+with various parameters for both external energy terms, and found some that
+work the best.
+
+Figures \ref{fig:coins} and \ref{fig:coins_log} show \texttt{coins.png} and the
+intermediate calculation images of performing the snake algorithm using $E_1$ and $E_2$ external energies respectively.
+Figures \ref{fig:coins_forces} and \ref{fig:coins_log_forces},
+\ref{fig:coins_fx} and \ref{fig:coins_log_fx}, and \ref{fig:coins_fy} and
+\ref{fig:coins_log_fy} show
+the force image, and the x and y derivative of the force image respectively for
+each of the two external forces.
+From the force image we clearly see that the coins are represented by a
+``ring''. When trying to detect the perimeter of a specific coin this ring is
+the part that minimizes the external energy of the snake.
+
+Figures \ref{fig:coins_0} to \ref{fig:coins_232} show 4 frames from the start
+of the snake algorithm (iteration 0) until convergence at iteration 232 using
+gradient magnitude. Comparing the final result by visual inspection to the
+result of using $E_2$ shows us that the $E_1$ energy gives us a tighter fit to
+the coin than $E_2$. Looking at the force image of using $E_2$
+(\ref{fig:coins_log_forces}) we see that each coin is represented by two rings
+(although the outer ring is less significant). This is explained easiest by
+comparing to the force image of using $E_1$. The outer ring is located at
+the transfer between the background and the coin edge and the inner ring is
+located at the transfer between the coin edge and the coin face.
+
 %
 \begin{figure}[H]
     \centering
