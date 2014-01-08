@@ -55,6 +55,8 @@ function p = snake(I, p, alpha, beta, gamma, tau, sigma, method, sCriteria, img,
         set(fi, 'papersize', [4.6 4.8]);
     else
         % Coin image
+        set(fi, 'PaperPosition', [-0.8 -1.1 5 4.5])
+        set(fi, 'PaperSize', [3.45 3]);
     end
 
     drawnow;
