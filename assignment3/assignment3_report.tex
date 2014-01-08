@@ -1,5 +1,10 @@
 \documentclass[11pt,a4paper]{article}
 
+\usepackage[
+    top    = 1in,
+    right  = 0.3in,
+    bottom = 1in,
+    left   = 0.3in]{geometry}
 \usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
 \usepackage[T1]{fontenc}
@@ -82,82 +87,195 @@ for each iteration, as derived in the slides from gradient descent and the three
 
 \begin{figure}[H]
     \centering
-    \begin{subfigure}[t]{0.48\textwidth}
+    \begin{subfigure}[t]{0.21\textwidth}
         \includegraphics[width=\textwidth]{src/images/coins_gradient_gray.pdf}
         \caption{original image}
         \label{fig:coins_original}
     \end{subfigure}
-    \begin{subfigure}[t]{0.48\textwidth}
+    \begin{subfigure}[t]{0.21\textwidth}
         \includegraphics[width=\textwidth]{src/images/coins_gradient_forces.pdf}
         \caption{Force image}
         \label{fig:coins_forces}
     \end{subfigure}
-    \begin{subfigure}[t]{0.48\textwidth}
+    \begin{subfigure}[t]{0.21\textwidth}
         \includegraphics[width=\textwidth]{src/images/coins_gradient_xforces.pdf}
         \caption{x derivative of force image}
         \label{fig:coins_fx}
     \end{subfigure}
-    \begin{subfigure}[t]{0.48\textwidth}
+    \begin{subfigure}[t]{0.21\textwidth}
         \includegraphics[width=\textwidth]{src/images/coins_gradient_yforces.pdf}
         \caption{y derivative of force image}
         \label{fig:coins_fy}
     \end{subfigure}
-    \caption{\texttt{cubic.jpg} image and derivatives using $\sigma = 2$.}
+    \begin{subfigure}[t]{0.21\textwidth}
+        \includegraphics[width=\textwidth]{src/images/coins_gradient_0.pdf}
+        \caption{Snake start}
+        \label{fig:coins_0}
+    \end{subfigure}
+    \begin{subfigure}[t]{0.21\textwidth}
+        \includegraphics[width=\textwidth]{src/images/coins_gradient_60.pdf}
+        \caption{Iteration 60}
+        \label{fig:coins_60}
+    \end{subfigure}
+    \begin{subfigure}[t]{0.21\textwidth}
+        \includegraphics[width=\textwidth]{src/images/coins_gradient_120.pdf}
+        \caption{Iteration 120}
+        \label{fig:coins_120}
+    \end{subfigure}
+    \begin{subfigure}[t]{0.21\textwidth}
+        \includegraphics[width=\textwidth]{src/images/coins_gradient_232.pdf}
+        \caption{Snake stop (iteration 232)}
+        \label{fig:coins_232}
+    \end{subfigure}
+    \caption{\texttt{coins.png} image and derivatives using gradient magnitude
+($E_1$) and setup: $\alpha = 0.5$, $\beta = 1$, $\gamma = 300$, $\tau = 1$,
+$\sigma = 3$, $t = 0.021$.}
     \label{fig:coins}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \caption{\texttt{cubic.jpg} image and derivatives using $\sigma = 2$.}
-    \label{fig:cubic}
+    \begin{subfigure}[t]{0.21\textwidth}
+        \includegraphics[width=\textwidth]{src/images/coins_log_gray.pdf}
+        \caption{original image}
+        \label{fig:coins_log_original}
+    \end{subfigure}
+    \begin{subfigure}[t]{0.21\textwidth}
+        \includegraphics[width=\textwidth]{src/images/coins_log_forces.pdf}
+        \caption{Force image}
+        \label{fig:coins_log_forces}
+    \end{subfigure}
+    \begin{subfigure}[t]{0.21\textwidth}
+        \includegraphics[width=\textwidth]{src/images/coins_log_xforces.pdf}
+        \caption{x derivative of force image}
+        \label{fig:coins_log_fx}
+    \end{subfigure}
+    \begin{subfigure}[t]{0.21\textwidth}
+        \includegraphics[width=\textwidth]{src/images/coins_log_yforces.pdf}
+        \caption{y derivative of force image}
+        \label{fig:coins_log_fy}
+    \end{subfigure}
+    \begin{subfigure}[t]{0.21\textwidth}
+        \includegraphics[width=\textwidth]{src/images/coins_log_0.pdf}
+        \caption{Snake start}
+        \label{fig:coins_log_0}
+    \end{subfigure}
+    \begin{subfigure}[t]{0.21\textwidth}
+        \includegraphics[width=\textwidth]{src/images/coins_log_60.pdf}
+        \caption{Iteration 60}
+        \label{fig:coins_log_60}
+    \end{subfigure}
+    \begin{subfigure}[t]{0.21\textwidth}
+        \includegraphics[width=\textwidth]{src/images/coins_log_120.pdf}
+        \caption{Iteration 120}
+        \label{fig:coins_log_120}
+    \end{subfigure}
+    \begin{subfigure}[t]{0.21\textwidth}
+        \includegraphics[width=\textwidth]{src/images/coins_log_180.pdf}
+        \caption{Snake stop (iteration 180)}
+        \label{fig:coins_log_180}
+    \end{subfigure}
+    \caption{\texttt{coins.png} image and derivatives using Laplacian of
+    Gaussian
+($E_1$) and setup: $\alpha = 0.5$, $\beta = 1$, $\gamma = 300$, $\tau = 1$,
+$\sigma = 3$, $t = 0.021$.}
+    \label{fig:coins_log}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \begin{subfigure}[t]{0.48\textwidth}
+    \begin{subfigure}[t]{0.21\textwidth}
         \includegraphics[width=\textwidth]{src/images/cubic_shape01.jpg}
         \caption{original image}
         \label{fig:cubic_original}
     \end{subfigure}
-    \begin{subfigure}[t]{0.48\textwidth}
+    \begin{subfigure}[t]{0.21\textwidth}
         \includegraphics[width=\textwidth]{src/images/cubic_forces.pdf}
         \caption{Force image}
         \label{fig:cubic_forces}
     \end{subfigure}
-    \begin{subfigure}[t]{0.48\textwidth}
+    \begin{subfigure}[t]{0.21\textwidth}
         \includegraphics[width=\textwidth]{src/images/cubic_xforces.pdf}
         \caption{x derivative of force image}
         \label{fig:cubic_fx}
     \end{subfigure}
-    \begin{subfigure}[t]{0.48\textwidth}
+    \begin{subfigure}[t]{0.21\textwidth}
         \includegraphics[width=\textwidth]{src/images/cubic_yforces.pdf}
         \caption{y derivative of force image}
         \label{fig:cubic_fy}
     \end{subfigure}
-    \begin{subfigure}[t]{0.24\textwidth}
+    \begin{subfigure}[t]{0.21\textwidth}
         \includegraphics[width=\textwidth]{src/images/cubic_0.pdf}
         \caption{Snake start}
         \label{fig:cubic_grayscale}
     \end{subfigure}
-    \begin{subfigure}[t]{0.24\textwidth}
+    \begin{subfigure}[t]{0.21\textwidth}
         \includegraphics[width=\textwidth]{src/images/cubic_400.pdf}
         \caption{iteration 400}
         \label{fig:cubic_400}
     \end{subfigure}
-    \begin{subfigure}[t]{0.24\textwidth}
+    \begin{subfigure}[t]{0.21\textwidth}
         \includegraphics[width=\textwidth]{src/images/cubic_800.pdf}
         \caption{iteration 800}
         \label{fig:cubic_800}
     \end{subfigure}
-    \begin{subfigure}[t]{0.24\textwidth}
+    \begin{subfigure}[t]{0.21\textwidth}
         \includegraphics[width=\textwidth]{src/images/cubic_1677.pdf}
         \caption{snake stop (iteration 1677)}
         \label{fig:cubic_end}
     \end{subfigure}
-    \caption{\texttt{cubic.jpg} snake intermediate results using setup: $\alpha
-= 0.7$, $\beta = 0.5$, $\gamma = 1500$, $\tau = 0.4$, $\sigma = 2$.}
+    \caption{\texttt{cubic.jpg} snake intermediate results using gradient
+    magnitude ($E_1$) and setup: $\alpha
+= 0.7$, $\beta = 0.5$, $\gamma = 1500$, $\tau = 0.4$, $\sigma = 2$, $t = 0.002$.}
     \label{fig:cubic_intermediate}
 \end{figure}
 
-\end{document}
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[t]{0.21\textwidth}
+        \includegraphics[width=\textwidth]{src/images/cubic_shape01.jpg}
+        \caption{original image}
+        \label{fig:cubic_log_original}
+    \end{subfigure}
+    \begin{subfigure}[t]{0.21\textwidth}
+        \includegraphics[width=\textwidth]{src/images/cubic_log_forces.pdf}
+        \caption{Force image}
+        \label{fig:cubic_log_forces}
+    \end{subfigure}
+    \begin{subfigure}[t]{0.21\textwidth}
+        \includegraphics[width=\textwidth]{src/images/cubic_log_xforces.pdf}
+        \caption{x derivative of force image}
+        \label{fig:cubic_log_fx}
+    \end{subfigure}
+    \begin{subfigure}[t]{0.21\textwidth}
+        \includegraphics[width=\textwidth]{src/images/cubic_log_yforces.pdf}
+        \caption{y derivative of force image}
+        \label{fig:cubic_log_fy}
+    \end{subfigure}
+    \begin{subfigure}[t]{0.21\textwidth}
+        \includegraphics[width=\textwidth]{src/images/cubic_log_0.pdf}
+        \caption{Snake start}
+        \label{fig:cubic_log_grayscale}
+    \end{subfigure}
+    \begin{subfigure}[t]{0.21\textwidth}
+        \includegraphics[width=\textwidth]{src/images/cubic_log_400.pdf}
+        \caption{iteration 400}
+        \label{fig:cubic_log_400}
+    \end{subfigure}
+    \begin{subfigure}[t]{0.21\textwidth}
+        \includegraphics[width=\textwidth]{src/images/cubic_log_3200.pdf}
+        \caption{iteration 3200}
+        \label{fig:cubic_log_3200}
+    \end{subfigure}
+    \begin{subfigure}[t]{0.21\textwidth}
+        \includegraphics[width=\textwidth]{src/images/cubic_log_10329.pdf}
+        \caption{snake stop (iteration 10329)}
+        \label{fig:cubic_log_end}
+    \end{subfigure}
+    \caption{\texttt{cubic.jpg} snake intermediate results using Laplacian of
+    Gaussian ($E_2$) and setup: $\alpha
+= 0.2$, $\beta = 0.2$, $\gamma = 3000$, $\tau = 0.6$, $\sigma = 2$, $t = 0.002$.}
+    \label{fig:cubic_log_intermediate}
+\end{figure}
 
+\end{document}

@@ -50,6 +50,7 @@ xs = interp1(xy(:,1), ts,'linear');
 ys = interp1(xy(:,2), ts,'linear');
 
 % Perform snake iterations
+% Gradient magnitude
 alpha = 0.5;
 beta  = 1;
 gamma = 300;
@@ -58,3 +59,11 @@ sigma = 3;
 
 snake(I, [xs(1:end-1)', ys(1:end-1)'], alpha, beta, gamma, tau, sigma,...
         'gradient magnitude', 2.1e-2,'images/coins_gradient', 60);
+% LoG
+alpha = 12.5;
+beta  = 0.5;
+gamma = 8000;
+tau   = 0.1;
+sigma = 3;
+snake(I, [xs(1:end-1)', ys(1:end-1)'], alpha, beta, gamma, tau, sigma,...
+        'log', 2.1e-2,'images/coins_log', 60);
