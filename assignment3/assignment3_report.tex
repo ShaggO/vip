@@ -10,8 +10,9 @@
 
 \usepackage{amsmath,amssymb,amsfonts}
 
-\title{}
-\author{Malte Stær Nissen}
+\title{Vision and Image Processing\\Assignment 3}
+\author{Malte Stær Nissen \\ \texttt{tgq958} \and Benjamin Braithwaite \\
+\texttt{cpg608}}
 
 \begin{document}
 \maketitle
@@ -60,7 +61,23 @@ F_y &= - (\nabla I_{\sigma xx} + \nabla I_{\sigma yy}) (\nabla I_{\sigma xxy} + 
 %
 
 \section{Implementation description}
-
+%
+Our implementation is based on computing
+%
+\begin{align}
+\mathbf{x}^{s+1} &= \mathbf{M}^{-1} (\mathbf{x} - \gamma F_x(\mathbf{x}^s, \mathbf{y}^s)), \\
+\mathbf{y}^{s+1} &= \mathbf{M}^{-1} (\mathbf{y} - \gamma F_y(\mathbf{x}^s, \mathbf{y}^s))
+\end{align}
+%
+for each iteration, as derived in the slides from gradient descent and the three energy terms. $\mathbf{M}$ is the system matrix and is constructed based on $\alpha$, $\beta$, and $\tau$. We halt the algorithm when the change in every point on the curve is less than some threshold $t$, or when a maximal number of iterations is reached. The parameters have the following function:
+%
+\begin{itemize}
+\item $\alpha$: Weight of curve energy term, which minimizes the length of the curve.
+\item $\beta$: Weight of bending energy term, which minimizes the bend between consecutive segments.
+\item $\gamma$: Weight of the external energy term, which minimizes the external force of the image at the curve points.
+\item $\tau$: Step size of one gradient descent iteration.
+\end{itemize}
+%
 \section{Tests and examples}
 
 \begin{figure}[H]
