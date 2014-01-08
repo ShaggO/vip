@@ -56,4 +56,5 @@ gamma = 300;
 tau   = 1;
 sigma = 3;
 
-snake(I, [xs(1:end-1)', ys(1:end-1)'], alpha, beta, gamma, tau, sigma);
+snake(I, [xs(1:end-1)', ys(1:end-1)'], alpha, beta, gamma, tau, sigma,...
+        'gradient magnitude', 2.1e-2,'images/coins_gradient', 60);

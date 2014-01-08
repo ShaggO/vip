@@ -1,9 +1,12 @@
-function p = snake(I, p, alpha, beta, gamma, tau, sigma, method, img, ith)
+function p = snake(I, p, alpha, beta, gamma, tau, sigma, method, sCriteria, img, ith)
 % Perform snake iterations and output final snake points
     if nargin < 9
-        img = '';
+        sCriteria = 2.1e-2
     end
     if nargin < 10
+        img = '';
+    end
+    if nargin < 11
         ith = false;
     end
 
@@ -90,8 +93,7 @@ function p = snake(I, p, alpha, beta, gamma, tau, sigma, method, img, ith)
 
         % Stop loop early if no change is detected
         diffP = max(sqrt(sum(v.^2,2)));
-%        if max(diffP) < 2.1e-2
-        if max(diffP) < 2e-3
+        if max(diffP) < sCriteria
             break;
         end
     end
