@@ -4,6 +4,7 @@ close all;
 clc;
 
 
+%% Perform snake algorithm on coins.png
 % Load images
 I = imread('coins.png');
 
@@ -67,3 +68,6 @@ tau   = 0.1;
 sigma = 3;
 snake(I, [xs(1:end-1)', ys(1:end-1)'], alpha, beta, gamma, tau, sigma,...
         'log', 2.1e-2,'images/coins_log', 60);
+
+%%% Perform snake algorithm on cubic.jpg
+main2
