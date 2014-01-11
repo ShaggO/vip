@@ -1,0 +1,7 @@
+*.fls
+*.aux
+*.fdb_latexmk
+*.log
+*.synctex.gz
+*.out
+assignment4_report.pdf
