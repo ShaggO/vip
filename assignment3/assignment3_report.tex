@@ -66,14 +66,14 @@ F_y &= - (\nabla I_{\sigma xx} + \nabla I_{\sigma yy}) (\nabla I_{\sigma xxy} + 
 
 \section{Implementation description}
 %
-Our implementation is based on computing
+Our implementation of the snake algorithm is based on computing
 %
 \begin{align}
 \mathbf{x}^{s+1} &= \mathbf{M}^{-1} (\mathbf{x} - \gamma F_x(\mathbf{x}^s, \mathbf{y}^s)), \\
 \mathbf{y}^{s+1} &= \mathbf{M}^{-1} (\mathbf{y} - \gamma F_y(\mathbf{x}^s, \mathbf{y}^s))
 \end{align}
 %
-for each iteration, as derived in the slides from gradient descent and the three energy terms. $\mathbf{M}$ is the system matrix and is constructed based on $\alpha$, $\beta$, and $\tau$. We halt the algorithm when the change in every point on the curve is less than some threshold $t$, or when a maximal number of iterations is reached. The parameters have the following function:
+for each iteration, as derived in the slides from the expressions for gradient descent and the three energy terms. $\mathbf{M}$ is called the system matrix and is constructed based on $\alpha$, $\beta$, and $\tau$. We halt the algorithm when the change in every point on the curve is less than some threshold $t$, or when a maximal number of iterations is reached. The parameters have the following function:
 %
 \begin{itemize}
 \item $\alpha$: Weight of curve energy term, which minimizes the length of the curve.
@@ -115,6 +115,9 @@ comparing to the force image of using $E_1$. The outer ring is located at
 the transfer between the background and the coin edge and the inner ring is
 located at the transfer between the coin edge and the coin face.
 
+Figures 3 and 4 show the same intermediate images for \texttt{cubic.png}. We see that the force image for $E_2$ picks up a lot more detail and noise than for $E_1$, despite using the same $\sigma$. As a result, the derivative images are much more faint for $E_2$, and the algorithm has trouble converging to the object. In fact, we were unable to find parameters that would get the snake to reach all of the cube's edges, while not intersecting into it. We did not have the same problem using $E_1$.
+
+Some general observations about the snake algorithm: it is important not to set $\alpha$ too high, or the curve will pass through the edge of the object, with no way to recover. Also, if $\gamma$ is set too high, the curve will oscillate rapidly at the edges causing a bad fit. The bending energy term does not seem very important for the success of the algorithm. Finally, we have had the best success using the $E_1$ external energy over $E_2$, both with regards to finding working parameters and the accuracy of the result.
 %
 \begin{figure}[H]
     \centering
