@@ -2,9 +2,9 @@
 
 \usepackage[
     top    = 1in,
-    right  = 1in,
+    right  = 1.5in,
     bottom = 1in,
-    left   = 1in]{geometry}
+    left   = 1.5in]{geometry}
 \usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
 \usepackage[T1]{fontenc}
@@ -21,11 +21,6 @@
 
 \begin{document}
 \maketitle
-
-Image url: http://cdn.logicspot.com/wp-content/uploads/2011/11/Online-Competitor-Analysis.jpg
-
-Interpolation: http://www.mathworks.se/help/matlab/ref/interp1.html
-
 \section{External force derivatives}
 %
 We compute the derivatives of the two expressions for computing the external force image $F$. This is related to the external energy term $E_\mathcal{E}$ by $E_\mathcal{E}(C) = \sum_{i=1}^n F(C(i))$.
@@ -73,14 +68,23 @@ Our implementation of the snake algorithm is based on computing
 \mathbf{y}^{s+1} &= \mathbf{M}^{-1} (\mathbf{y} - \gamma F_y(\mathbf{x}^s, \mathbf{y}^s))
 \end{align}
 %
-for each iteration, as derived in the slides from the expressions for gradient descent and the three energy terms. $\mathbf{M}$ is called the system matrix and is constructed based on $\alpha$, $\beta$, and $\tau$. We halt the algorithm when the change in every point on the curve is less than some threshold $t$, or when a maximal number of iterations is reached. The parameters have the following function:
+for each iteration, as derived in the slides from the expressions for
+gradient descent and the three energy terms. $\mathbf{M}$ is called the
+system matrix and is constructed based on $\alpha$, $\beta$, and $\tau$. We
+halt the algorithm when the change in every point on the curve is less than
+some threshold $t$, or when a maximal number of iterations is reached. The
+parameters have the following function:
 %
 \begin{itemize}
-\item $\alpha$: Weight of curve energy term, which minimizes the length of the curve.
-\item $\beta$: Weight of bending energy term, which minimizes the bend between consecutive segments.
-\item $\gamma$: Weight of the external energy term, which minimizes the external force of the image at the curve points.
-\item $\tau$: Step size of one gradient descent iteration.
-\item $\sigma$: Standard deviation of the Gaussian function used to blur the image.
+    \item{$\alpha$: Weight of curve energy term, which minimizes the length of
+        the curve.}
+    \item{$\beta$: Weight of bending energy term, which minimizes the bend between
+        consecutive segments.}
+    \item{$\gamma$: Weight of the external energy term, which minimizes the external
+        force of the image at the curve points.}
+    \item{$\tau$: Step size of one gradient descent iteration.}
+    \item{$\sigma$: Standard deviation of the Gaussian function used to blur the
+        image.}
 \end{itemize}
 %
 \section{Tests and examples}
@@ -90,11 +94,12 @@ $\texttt{coins.png}$\footnote{Standard Matlab image} and
 $\texttt{cubic.jpg}$\footnote{\url{http://www.korthalsaltes.com/photo/cubic_sh
 apes/cubic_shape01.jpg}} shown in Figures \ref{fig:coins_original} and
 \ref{fig:cubic_original} respectively. For each image we have experimented
-with various parameters for both external energy terms, and found some that
-work the best.
+with various parameters for both the external and internal energy terms, and
+found some that work the best.
 
-Figures \ref{fig:coins} and \ref{fig:coins_log} show \texttt{coins.png} and the
-intermediate calculation images of performing the snake algorithm using $E_1$ and $E_2$ external energies respectively.
+Figures \ref{fig:coins} and \ref{fig:coins_log} show \texttt{coins.png} and
+the intermediate calculation images of performing the snake algorithm using
+$E_1$ and $E_2$ external energies respectively.
 Figures \ref{fig:coins_forces} and \ref{fig:coins_log_forces},
 \ref{fig:coins_fx} and \ref{fig:coins_log_fx}, and \ref{fig:coins_fy} and
 \ref{fig:coins_log_fy} show
@@ -113,11 +118,32 @@ the coin than $E_2$. Looking at the force image of using $E_2$
 (although the outer ring is less significant). This is explained easiest by
 comparing to the force image of using $E_1$. The outer ring is located at
 the transfer between the background and the coin edge and the inner ring is
-located at the transfer between the coin edge and the coin face.
+located at the transfer between the coin edge and the coin face. This will
+inevitably give us a different result than using the gradient magnitude, where
+the single ring around each coin is located in the middle of the two rings in
+the LoG force image.
 
-Figures 3 and 4 show the same intermediate images for \texttt{cubic.png}. We see that the force image for $E_2$ picks up a lot more detail and noise than for $E_1$, despite using the same $\sigma$. As a result, the derivative images are much more faint for $E_2$, and the algorithm has trouble converging to the object. In fact, we were unable to find parameters that would get the snake to reach all of the cube's edges, while not intersecting into it. We did not have the same problem using $E_1$.
+Figures 3 and 4 show the same intermediate images for \texttt{cubic.png}. We
+see that the force image for $E_2$ picks up a lot more detail and noise than
+for $E_1$, despite using the same $\sigma$. As a result, the derivative images
+are much more faint for $E_2$, and the algorithm has trouble converging to the
+object. In fact, we were unable to find parameters that would get the snake to
+reach all of the cube's edges, while not intersecting into it. We did not have
+the same problem using $E_1$. This image is however also a somewhat difficult
+shape for the snake to fit to properly caused by the combination of the design
+of the internal snake energy and the need for fitting tight to corners in the
+image.
 
-Some general observations about the snake algorithm: it is important not to set $\alpha$ too high, or the curve will pass through the edge of the object, with no way to recover. Also, if $\gamma$ is set too high, the curve will oscillate rapidly at the edges causing a bad fit. The bending energy term does not seem very important for the success of the algorithm. Finally, we have had the best success using the $E_1$ external energy over $E_2$, both with regards to finding working parameters and the accuracy of the result.
+Some general observations about the snake algorithm: it is important not to
+set $\alpha$ too high, or the curve will pass through the edge of the object,
+with no way to recover. Also, if $\gamma$ is set too high, the curve will
+oscillate rapidly at the edges causing a bad fit. The bending energy term does
+not seem very important for the success of the algorithm. If we set the weight
+$\gamma$ on the external energy too high, the snake will follow the local
+gradients in the image as opposed to trying to snap tighter around the object it
+encapsulates. Finally, we have had
+the best success using the $E_1$ external energy over $E_2$, both with regards
+to finding working parameters and the accuracy of the result.
 %
 \begin{figure}[H]
     \centering
