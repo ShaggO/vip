@@ -4,6 +4,8 @@ In order to run the snake on both images (coins.png first and then cubic.jpg),
 the script "main.m" should be executed in Matlab. Execute "coins_snake" or
 "cubic_snake" to execute the snake algorithm only on coins.png or cubic.jpg
 respectively.
+When choosing points use Mouse Button 1 for marking points and some other key
+(ie. "esc") when no more points are needed.
 
 When running the code the first time, one should choose X number of points which
 will be interpolated into a circle.
