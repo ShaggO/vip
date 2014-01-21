@@ -21,9 +21,11 @@
 
 \section{Kanade-Lucas-Tomasi (KLT) tracker}
 
+Explain implementation and the following parameters: $\sigma$, patch size, initial threshold, keep threshold, and number of convergence iterations.
+
 \section{Testing}
 %
-We test our tracker on the provided dudekface image sequence. Selected frames with the tracked features are shown in Figure \ref{fig:tracker_dudekface}.
+We test our tracker on the provided dudekface image sequence using the best parameters we have found: $\sigma = 2$, 15x15 patch size, initial threshold of $3 \cdot 10^{-4}$, keep threshold of $3 \cdot 10^{-6}$, and 5 convergence iterations. Selected frames with the tracked feature patches and displacement vectors are shown in Figure \ref{fig:tracker_dudekface}.
 %
 \begin{figure}[H]
 \centering
@@ -39,7 +41,7 @@ We test our tracker on the provided dudekface image sequence. Selected frames wi
 \begin{subfigure}{0.45\textwidth}
 \includegraphics[scale=0.4,trim={70 250 90 250}]{img/tracker_dudekface_213.pdf}
 \end{subfigure}
-\caption{Frames 1, 10, 100 and 231 from our KLT tracker used on the dudekface image sequence.}
+\caption{Frames 1, 10, 100 and 231 from our KLT tracker used on the dudekface image sequence. Feature patches are shown in red and (scaled) displacement vectors for these in blue.}
 \label{fig:tracker_dudekface}
 \end{figure}
 
