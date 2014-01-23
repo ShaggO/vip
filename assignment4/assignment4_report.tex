@@ -103,31 +103,31 @@ diverged away from their correct position.
 %
 \section{Testing}
 %
-We test our tracker on the provided dudekface image sequence using the best
-parameters we have found: $\sigma = 2$, 15x15 patch size, initial threshold
-of $3 \cdot 10^{-4}$, keep threshold of $3 \cdot 10^{-6}$, and 5 convergence
-iterations. Selected frames with the tracked feature patches and displacement
-vectors are shown in Figure \ref{fig:tracker_dudekface}.
-%
-\begin{figure}[H]
-    \centering
-    \begin{subfigure}{0.45\textwidth}
-        \includegraphics[scale=0.4,trim={120 250 0 250}]{img/tracker_dudekface_1.pdf}
-    \end{subfigure}
-    \begin{subfigure}{0.45\textwidth}
-        \includegraphics[scale=0.4,trim={70 250 0 250}]{img/tracker_dudekface_10.pdf}
-    \end{subfigure}
-    \begin{subfigure}{0.45\textwidth}
-        \includegraphics[scale=0.4,trim={120 250 90 250}]{img/tracker_dudekface_100.pdf}
-    \end{subfigure}
-    \begin{subfigure}{0.45\textwidth}
-        \includegraphics[scale=0.4,trim={70 250 90 250}]{img/tracker_dudekface_213.pdf}
-    \end{subfigure}
-    \caption{Frames 1, 10, 100 and 231 from our KLT tracker used on the
-        dudekface image sequence. Feature patches are shown in red and (scaled)
-        displacement vectors for these in blue.}
-    \label{fig:tracker_dudekface}
+We test our tracker on the provided dudekface image sequence using the best parameters we have found: $\sigma = 2$, 15x15 patch size, initial threshold of $3 \cdot 10^{-4}$, keep threshold of $3 \cdot 10^{-6}$, and 5 convergence iterations. Selected frames with the tracked feature patches and displacement vectors are shown in Figure \ref{fig:tracker_dudekface}.
+
+\begin{figure}
+\centering
+\begin{subfigure}{0.45\textwidth}
+\includegraphics[scale=0.4,trim={120 250 0 250}]{img/tracker_dudekface_1.pdf}
+\end{subfigure}
+\begin{subfigure}{0.45\textwidth}
+\includegraphics[scale=0.4,trim={70 250 0 250}]{img/tracker_dudekface_10.pdf}
+\end{subfigure}
+\begin{subfigure}{0.45\textwidth}
+\includegraphics[scale=0.4,trim={120 250 90 250}]{img/tracker_dudekface_100.pdf}
+\end{subfigure}
+\begin{subfigure}{0.45\textwidth}
+\includegraphics[scale=0.4,trim={70 250 90 250}]{img/tracker_dudekface_213.pdf}
+\end{subfigure}
+\caption{Frames 1, 10, 100 and 231 from our KLT tracker used on the dudekface image sequence. Feature patches are shown in red and (scaled) displacement vectors for these in blue.}
+\label{fig:tracker_dudekface}
 \end{figure}
 
+We see that many of the initial features found by the tracker are given a large displacement vector, resulting in them being lost by the thresholding step very shortly after. Apart from this, most of the features stay at the same real-world positions from frame 1 to 10 as desired. A few features such as the one at the speaker to the right move in real-world position, which is a mistake of the tracker.
+
+As time passes more and more of the features are lost, some suddenly for seemlingly no reason, and others through too fast motion or occlusion. For example the hand wave across the face seen in frame 231 causes the remaining face features to be lost. This can be expected as we have not implemented any kind of recovery mechanism, should features not be visible for a short duration.
+
+Overall our KLT tracker performs quite badly regarding tracking accuracy and computation time. Possible improvements include detection of new patches every few frames and/or some kind of patch matching mechanism between frames to prevent the issue of features changing in real-world position.
+%
 \end{document}
 
