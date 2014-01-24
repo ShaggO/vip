@@ -22,8 +22,8 @@
 \section{Initial notes}
 %
 We have in this assignment implemented our own KLT tracker for tracking patches
-throughout video sequences and will in this report first describe how the
-tracker is implemented and then test the tracker on a couple of video sequences.
+throughout video sequences. In this report we first describe how the
+tracker is implemented and then test the tracker on a video sequence.
 Finally we will comment on the results and shortly discuss ways of improving the
 tracker.
 %
@@ -52,7 +52,7 @@ projected onto the gradient for each patch in the image.
         (I(x) - J(x)) g_y(x) w(x)
     \end{bmatrix}
 \end{align*}
-Where $I$ is the current image and $J$ is the next image, and $g_x$ and
+Here $I$ is the current image and $J$ is the next image, and $g_x$ and
 $g_y$ are the first order derivatives of $I$. We chose $w(x) = 1$ for
 simplicity and we utilize the first order of the Gaussian distribution with
 standard deviation $\sigma$ to first smooth and then derive our images in one
@@ -62,9 +62,9 @@ Hereafter we compute the eigenvalues of $G$. Since $G$ is a $2 \times 2$ matrix,
 we can compute the eigenvalues by solving the 2nd degree polynomial we
 get from using the property of eigenvalues that:
 \begin{align*}
-    \text{det}\left( \lambda I - G\right) &= 0 \\
+    \text{det}\left( \lambda I - G\right) &= 0
 \end{align*}
-Hereafter we filter the patches by only keeping those patches having their
+We found this method to be substantially faster than the built-in MATLAB eigenvalue function. Hereafter we filter the patches by only keeping those patches having their
 lowest eigenvalue $min(\lambda_1,\lambda_2) > t_{init}$ where $t_{init}$ is the
 initial threshold. This ensures that both eigenvalues are
 sufficiently large and ensures that the patch contains a corner or texture.
@@ -73,8 +73,8 @@ lowest eigenvalue in descending order and walking through the list from the top
 throwing away a patch if it overlaps with one of the patches we already decided
 to keep.
 
-This detection of patches (implemented in \texttt{get\_features.mi}) could be
-performed in all iterations but we haven chosen only do it in the first and then to
+This detection of patches (implemented in \texttt{get\_features.m}) could be
+performed in several iterations but for simplicity we haven chosen only do it in the start and then to
 try to track the initial features for as long as possible.
 
 When we have the filtered features we compute the estimate of the image
@@ -85,10 +85,7 @@ Having computed the displacement the first time, we now want to refine the exact
 location of the patch in between pixels. We do this by interpolating the image
 values using a bilinear interpolation of the coordinates of the new patch. We
 do this for $i$ iterations in order to come up with the best estimate of patch
-position. If we should've followed the original KLT algorithm we should've
-performed this looping until convergence of the residue value or throw away the
-patch if it didn't converge. We chose not to implement this part exactly as
-intended due to time pressure before and during the exam period.
+position. In the original KLT algorithm this looping is done until convergence of the residue value, or the patch is thrown away if the patch if doesn't converge. We left out this part due to lack of time.
 
 When performing the computation of the displacement we furthermore throw away
 any patches that leaves the image including those who only partically overlap
@@ -103,7 +100,7 @@ diverged away from their correct position.
 %
 \section{Testing}
 %
-We test our tracker on the provided dudekface image sequence using the best parameters we have found: $\sigma = 2$, 15x15 patch size, initial threshold of $3 \cdot 10^{-4}$, keep threshold of $3 \cdot 10^{-6}$, and 5 convergence iterations. Selected frames with the tracked feature patches and displacement vectors are shown in Figure \ref{fig:tracker_dudekface}.
+We test our tracker on the provided dudekface image sequence using the best parameters we have found: $\sigma = 2$, 15x15 patch size, initial threshold of $t_{init} = 3 \cdot 10^{-4}$, keep threshold of $t_{keep} = 3 \cdot 10^{-6}$, and 5 convergence iterations. Selected frames with the tracked feature patches and displacement vectors are shown in Figure \ref{fig:tracker_dudekface}.
 
 \begin{figure}
 \centering
@@ -127,7 +124,7 @@ We see that many of the initial features found by the tracker are given a large 
 
 As time passes more and more of the features are lost, some suddenly for seemlingly no reason, and others through too fast motion or occlusion. For example the hand wave across the face seen in frame 231 causes the remaining face features to be lost. This can be expected as we have not implemented any kind of recovery mechanism, should features not be visible for a short duration.
 
-Overall our KLT tracker performs quite badly regarding tracking accuracy and computation time. Possible improvements include detection of new patches every few frames and/or some kind of patch matching mechanism between frames to prevent the issue of features changing in real-world position.
+Overall our KLT tracker performs quite badly regarding tracking accuracy and computation time, taking several seconds to compute some frames. Possible improvements include detection of new patches every few frames and/or some kind of patch matching mechanism between frames to prevent the issue of features changing in real-world position.
 %
 \end{document}
 
